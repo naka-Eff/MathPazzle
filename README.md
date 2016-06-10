@@ -1,4 +1,3 @@
 # MathPazzle
 
-
-test
+HelloWorld
