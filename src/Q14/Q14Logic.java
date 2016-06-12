@@ -10,6 +10,7 @@ import com.gs.collections.impl.factory.Maps;
 
 public class Q14Logic {
 	private static MutableMap<Integer, String> map = Maps.mutable.of();
+	private static ImmutableList<String> countries;
 	private static int count = 0;
 
 	public Q14Logic() {
@@ -17,10 +18,10 @@ public class Q14Logic {
 	}
 
 	public void run(ImmutableList<String> list) {
-		list.each(country -> {
+		countries = Lists.immutable.ofAll(list);
+		countries.each(country -> {
 			String lastName = Search(country);
-			// この先はgs collectionでかけない
-			Optional<ImmutableList<String>> xxx = xxx(lastName, list, Lists.mutable.of(country));
+			Optional<ImmutableList<String>> xxx = xxx(lastName, Lists.mutable.of());
 			if (xxx.isPresent()) {
 				runs(Lists.immutable.ofAll(xxx.get()), Lists.mutable.of(country));
 			}
@@ -35,7 +36,7 @@ public class Q14Logic {
 	public void runs(ImmutableList<String> list, MutableList<String> lists) {
 		list.each(country -> {
 			String lastName = Search(country);
-			Optional<ImmutableList<String>> xxx = xxx(lastName, list, lists);
+			Optional<ImmutableList<String>> xxx = xxx(lastName, lists);
 			if (xxx.isPresent()) {
 				lists.add(country);
 				// 最大値の更新
@@ -66,14 +67,17 @@ public class Q14Logic {
 	}
 
 	/**
-	 * @param lastName しりとりの最後の文字
-	 * @param list もともとのリスト
-	 * @param lists 同一を防ぐためのもの
+	 * @param lastName
+	 *            しりとりの最後の文字
+	 * @param list
+	 *            もともとのリスト
+	 * @param lists
+	 *            同一を防ぐためのもの
 	 * @return
 	 */
-	public Optional<ImmutableList<String>> xxx(String lastName, ImmutableList<String> list, MutableList<String> lists) {
-		MutableList<String> remaking = Lists.mutable.ofAll(list);
-		lists.each(name->{
+	public Optional<ImmutableList<String>> xxx(String lastName, MutableList<String> lists) {
+		MutableList<String> remaking = Lists.mutable.ofAll(countries);
+		lists.each(name -> {
 			remaking.remove(name);
 		});
 		ImmutableList<String> select = remaking.select(name -> name.startsWith(lastName)).toImmutable();
