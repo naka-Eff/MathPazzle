@@ -1,0 +1,12 @@
+
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.eclipse.collections:eclipse-collections:7.0.0'
+
+    testCompile 'junit:junit:4.12'
+}
