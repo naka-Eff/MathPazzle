@@ -10,14 +10,14 @@ public class Q17 {
 	}
 
 	private static void execute() {
-		int count = 1;
-		executeImpl(true, count);
-		executeImpl(false, count);
+		int y = 1;
+		executeImpl(true, y);
+		executeImpl(false, y);
 	}
 
 	private static void executeImpl(boolean boo, int i) {
 		int j = i++;
-		if (j == 31) {
+		if (31 <= j) {
 			check(boo);
 			return;
 		}
